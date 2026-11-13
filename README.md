@@ -79,17 +79,48 @@ py aws_profile_manager.py
 `boto3` es opcional: permite "Verificar conexión" sin la AWS CLI. Sin él, la app
 usa el comando `aws` si está en el PATH.
 
-## Versión de terminal (Bash)
+## Versión de terminal (`aws_credentials.sh`)
 
-Requiere AWS CLI y Python 3 (Git Bash, Linux o macOS):
+Misma gestión de profiles pero desde la terminal, sin ventana. Requiere
+**AWS CLI** y **Python 3** (se usa para borrar profiles) en Git Bash, Linux o
+macOS.
+
+Instalar los requisitos en Windows (PowerShell, opcional si ya los tienes):
+
+```powershell
+winget install --id Amazon.AWSCLI -e
+winget install --id Git.Git -e
+```
+
+Ejecutar (Git Bash, Linux o macOS):
 
 ```bash
 cd ~/Desktop/aws_profile_manager_program
 bash aws_credentials.sh
 ```
 
-El menú muestra siempre `[0] Limpiar profiles` y `[1] Crear profile nuevo`; los
-profiles existentes empiezan en `[2]`.
+Opcional: dejarlo como comando `aws-creds` disponible desde cualquier carpeta:
+
+```bash
+mkdir -p ~/bin
+cp ~/Desktop/aws_profile_manager_program/aws_credentials.sh ~/bin/aws-creds
+chmod +x ~/bin/aws-creds
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+aws-creds
+```
+
+Cómo funciona:
+
+- El menú muestra siempre `[0] Limpiar profiles antiguos` y `[1] Crear un
+  profile nuevo`; los profiles existentes empiezan en `[2]`.
+- Pega el bloque `export AWS_ACCESS_KEY_ID=...` (Access Key, Secret Key y
+  Session Token) y presiona Enter dos veces. El script extrae las claves,
+  guarda el profile (región `us-east-1`, salida `json`) y verifica la conexión
+  con `aws sts get-caller-identity`.
+- Al terminar puedes salir o registrar otro profile.
+- Para borrar, usa `[0]`: acepta números separados por coma, `todos` (menos
+  `default`) o `todo-absoluto`, y ofrece un backup previo.
 
 ## Resultado de la instalación
 
