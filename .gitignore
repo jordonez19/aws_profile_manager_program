@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Secrets and local AWS configuration
+.env
+.env.*
+!.env.example
+.aws/
+/credentials
+/config
+
+# PyInstaller build outputs
+/build/
+/dist/
+/AWSProfileManager.spec
+*.exe
+*.msi
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Windows and editor files
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
